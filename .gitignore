@@ -1,6 +1,36 @@
-venv/
+# Python
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Flask-specific
+instance/
+*.log
+
+# Model files
 *.h5
+*.hdf5
+*.pb
+*.tflite
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+*.swp
+*.swo
+
+# Environment variables
+.env
+
+# Dataset folder (if any)
 dataset/
-*.DS_Store
-*.pyc
+data/
