@@ -7,23 +7,27 @@ import io
 import os
 
 app = Flask(__name__)
-CORS(app)
 
-# Load AI model
+# Fix: cấu hình CORS rõ ràng cho mọi origin & route /predict
+CORS(app, resources={r"/predict": {"origins": "*"}})
+
+# Load model
 model = load_model("authenticity_model.h5")
 
-# Preprocess image (adjust to your model input)
+# Xử lý ảnh
 def preprocess_image(image_bytes):
     img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-    img = img.resize((224, 224))  # Change if your model requires different size
+    img = img.resize((224, 224))  # thay đổi theo model nếu cần
     img = np.array(img) / 255.0
     img = np.expand_dims(img, axis=0)
     return img
 
+# Kiểm tra server sống
 @app.route("/")
 def index():
     return "✅ AI Auth Checker API is running!"
 
+# API chính
 @app.route("/predict", methods=["POST"])
 def predict():
     if "image" not in request.files:
@@ -40,5 +44,6 @@ def predict():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# Dùng host/port phù hợp với Render
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
