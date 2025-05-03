@@ -10,7 +10,7 @@ app = Flask(__name__)
 # ✅ CHỈ ALLOW BLOGSPOT DOMAIN HOẶC CHO TẤT CẢ (tùy lựa chọn)
 CORS(app, resources={r"/predict": {"origins": "*"}})
 # Nếu bạn muốn chỉ cho phép blogspot: 
-# CORS(app, resources={r"/predict": {"origins": "https://checkdohieu.blogspot.com"}})
+# CORS(app, origins="https://checkdohieu.blogspot.com")
 
 # ✅ Load mô hình
 model = load_model("authenticity_model.h5")
